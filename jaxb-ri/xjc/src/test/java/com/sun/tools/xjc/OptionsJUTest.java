@@ -47,7 +47,7 @@ public class OptionsJUTest extends TestCase {
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
-        delDirs(o.targetDir);
+        FileUtils.delDirs(o.targetDir);
     }
 
     public void testCreateCodeWriter() throws JClassAlreadyExistsException, IOException {
@@ -156,22 +156,6 @@ public class OptionsJUTest extends TestCase {
         } finally {
             if (opts.proxyAuth != null) {
                 DefaultAuthenticator.reset();
-            }
-        }
-    }
-
-    public static void delDirs(File... dirs) {
-        for (File dir : dirs) {
-            if (!dir.exists()) {
-                continue;
-            }
-            if (dir.isDirectory()) {
-                for (File f : dir.listFiles()) {
-                    delDirs(f);
-                }
-                dir.delete();
-            } else {
-                dir.delete();
             }
         }
     }

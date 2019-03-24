@@ -32,7 +32,7 @@ public class XjcTaskTest extends XjcAntTaskTestBase {
         super.setUp();
         pkg = new File(srcDir, "test");
         metainf = new File(buildDir, "META-INF");
-        schema = copy(projectDir, "simple.xsd", XjcTaskTest.class.getResourceAsStream("resources/simple.xsd"));
+        schema = FileUtils.copy(projectDir, "simple.xsd", XjcTaskTest.class.getResourceAsStream("resources/simple.xsd"));
         assertTrue(pkg.mkdirs());
         assertTrue(metainf.mkdirs());
     }
