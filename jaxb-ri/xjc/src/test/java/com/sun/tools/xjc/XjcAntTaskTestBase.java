@@ -10,7 +10,6 @@
 
 package com.sun.tools.xjc;
 
-import junit.framework.TestCase;
 import java.io.*;
 
 /**
@@ -18,36 +17,23 @@ import java.io.*;
  * @author Yan GAO.
  *         All rights reserved.
  */
-public abstract class XjcAntTaskTestBase extends TestCase {
-  protected File projectDir;
-  protected File srcDir;
-  protected File buildDir;
+public abstract class XjcAntTaskTestBase extends XjcTestBase {
   protected File script;
-  protected boolean tryDelete = false;
 
   public abstract String getBuildScript();
 
   @Override
   protected void setUp() throws Exception {
     super.setUp();
-    projectDir = new File(System.getProperty("java.io.tmpdir"), getClass().getSimpleName() + "-" + getName());
-    if (projectDir.exists() && projectDir.isDirectory()) {
-      FileUtils.delDirs(projectDir);
-    }
-    srcDir = new File(projectDir, "src");
-    buildDir = new File(projectDir, "build");
-    assertTrue("project dir created", projectDir.mkdirs());
     script = FileUtils.copy(projectDir, getBuildScript(), XjcAntTaskTestBase.class.getResourceAsStream("resources/" + getBuildScript()));
   }
 
   @Override
   protected void tearDown() throws Exception {
-    super.tearDown();
     if (tryDelete) {
-      FileUtils.delDirs(srcDir, buildDir);
       script.delete();
-      assertTrue("project dir exists", projectDir.delete());
     }
+    super.tearDown();
   }
 
   static boolean is9() {
